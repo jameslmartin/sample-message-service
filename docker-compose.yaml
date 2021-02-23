@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  database:
+    container_name: postgres
+    image: postgres:latest
+    env_file: db/database.conf
+    ports:
+      - 5432:5432
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - `pwd`/db/init/:/docker-entrypoint-initdb.d
+
+  message:
+    container_name: guild
+    image: guild:latest
+    env-file: .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+networks:
+  default:
+    external:
+      name: guild
+
+volumes:
+  db_volume:

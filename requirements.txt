@@ -1,0 +1,8 @@
+ddtrace==0.44.0
+flask==1.0.2
+flask-sqlalchemy==2.3.0
+flask-restless==0.17.0
+psycopg2==2.7.6.1
+python-dotenv==0.15.0
+pytest==6.2.2
+gunicorn==19.9.0
