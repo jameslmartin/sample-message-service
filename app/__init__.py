@@ -1,13 +1,14 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask_sqlalchemy import SQLAlchemy
 import flask_restless
 
 db = SQLAlchemy()
 print("db initialized")
 
-def init_app():
+def create_app():
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object('config.Config')
+    app.url_map.strict_slashes = True
 
     db.init_app(app)
 
@@ -17,11 +18,13 @@ def init_app():
 
         from . import models
         db.create_all()
-        print("Database initiated!")
+        print("database initiated!")
 
-        # manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
-
-        # manager.create_api(models.Message, methods=['GET'], url_prefix='/get')
-        # manager.create_api(models.Message, methods=['POST'], url_prefix='/add')
+        @app.route("/health")
+        def health():
+            return make_response(
+                'UP',
+                200,
+            )
 
         return app

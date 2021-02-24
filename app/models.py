@@ -1,5 +1,7 @@
 from . import db
 
+import uuid
+
 class Message(db.Model):
     __tablename__ = 'messages'
 
@@ -32,6 +34,7 @@ class Message(db.Model):
     )
 
     def __init__(self, sender, recipient, message, created):
+        self.id = uuid.uuid4()
         self.sender = sender
         self.recipient = recipient
         self.message = message

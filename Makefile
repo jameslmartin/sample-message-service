@@ -26,15 +26,14 @@ build-message-service: ## Build the latest Flask app
 	docker build -t guild -f ./Dockerfile .
 
 service: ## Rebuild and stand up Postgres database and service in detached mode
-	docker-compose up --build -d
+	docker-compose up --build
 
 start-db: DOCKER_CONTAINER_NAME=postgres
-start-db: DOCKER_OPTS=-it \
+start-db: DOCKER_OPTS= --add-host=database:0.0.0.0 \
 	-v db_volume:/var/lib/postgresql/data \
 	-v `pwd`/db/init:/docker-entrypoint-initdb.d \
-	--add-host=database:0.0.0.0 \
 	-e POSTGRES_PASSWORD=education
-start-db: DOCKER_PORTS=-p 5432:5432
+start-db: DOCKER_PORTS=-p 0.0.0.0:5432:5432
 start-db: DOCKER_IMAGE=postgres:latest
 start-db: run-docker
 start-db: ## Run Postgres with mounted init script
@@ -42,9 +41,18 @@ start-db: ## Run Postgres with mounted init script
 unit-test: DOCKER_CONTAINER_NAME=guild-test
 unit-test: DOCKER_OPTS=-it
 unit-test: DOCKER_IMAGE=guild:latest
-unit-test: DOCKER_CMD=pytest
+unit-test: DOCKER_CMD=pytest -s app
 unit-test: run-docker
 unit-test: ## Run init tests in project
+
+functional-test: DOCKER_CONTAINER_NAME=guild-test
+functional-test: DOCKER_OPTS=-it \
+	-v `pwd`:/home/app/ 
+functional-test: NETWORK=host
+functional-test: DOCKER_IMAGE=guild:latest
+functional-test: DOCKER_CMD=pytest -s functional_test
+functional-test: run-docker
+functional-test: ## Run init tests in project
 
 dev: DOCKER_CONTAINER_NAME=message-service
 dev: DOCKER_PORTS=-p 0.0.0.0:$(APP_PORT):8080
@@ -59,6 +67,5 @@ start: ## Shortcut to running a wsgi server with gunicorn
 message-service: DOCKER_CONTAINER_NAME=message-service
 message-service: DOCKER_PORTS=-p 0.0.0.0:$(APP_PORT):8080
 message-service: DOCKER_OPTS=-it --env-file ./.env
-message-service: DOCKER_CMD=bash
 message-service: run-docker
 message-service: ## Run Flask app server for messages

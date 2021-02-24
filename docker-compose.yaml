@@ -8,15 +8,15 @@ services:
       - 5432:5432
     volumes:
       - db_volume:/var/lib/postgresql/data
-      - `pwd`/db/init/:/docker-entrypoint-initdb.d
+      - $PWD/db/init/:/docker-entrypoint-initdb.d
 
   message:
     container_name: guild
     image: guild:latest
-    env-file: .env
+    env_file: .env
     ports:
       - 8080:8080
-    depends_on:
+    links:
       - database
 
 networks:
