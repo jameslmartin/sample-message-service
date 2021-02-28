@@ -1,13 +1,13 @@
 from pytest import fixture
 from .models import Message
 
-import time
+from datetime import datetime, timezone
 
 @fixture
 def message() -> Message:
     return Message(
-        sender='test', recipient='test2', message="test test", created=time.time()*1000
+        sender='test', recipient='test2', message="test test", created=datetime.now(timezone.utc)
     )
 
-def test_Message_create(message: Message):
+def test_Message_create(message: Message):  
     assert message

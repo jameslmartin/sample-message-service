@@ -17,7 +17,12 @@ def test_given_correct_request__adds_message_to_db():
     print(r.text)
 
 def test_given_malformed_request__returns_400_error():
-    pass
+    message = {
+        "sender": "james",
+        "recipient": "joe",
+    }
+    r = requests.post(SERVICE_BASE_PATH + "/message", data=message)
+    print(r.text)
 
 def test_given_malformed_request__returns_400_error():
     pass

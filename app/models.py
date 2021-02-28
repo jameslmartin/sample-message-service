@@ -1,4 +1,5 @@
-from . import db
+from app import db
+from sqlalchemy.dialects.postgresql import UUID
 
 import uuid
 
@@ -6,24 +7,26 @@ class Message(db.Model):
     __tablename__ = 'messages'
 
     id = db.Column(
-        db.Integer,
-        primary_key=True
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4
     )
     sender = db.Column(
         db.String(64),
         index=False,
+        unique=False,
         nullable=False
     )
     recipient = db.Column(
         db.String(64),
         index=False,
-        unique=True,
+        unique=False,
         nullable=False
     )
     message = db.Column(
         db.String(1024),
         index=False,
-        unique=True,
+        unique=False,
         nullable=False
     )
     created = db.Column(

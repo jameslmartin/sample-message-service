@@ -17,3 +17,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = environ.get("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_ECHO = environ.get("SQLALCHEMY_ECHO")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+class TestConfig:
+    SQLALCHEMY_DATABASE_URI = "postgres://postgres:education@database:5432/messages_test"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
