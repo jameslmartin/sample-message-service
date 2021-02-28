@@ -1,6 +1,10 @@
+from flask import current_app as app
 from flask import make_response
 
 headers = {"Content-Type": "application/json"}
+
+## Most of these responses could be abstracted away/removed
+## with usage of a Flask REST API framework
 
 def incorrect_mimetype():
     app.logger.error('Unsupported mimetype sent')

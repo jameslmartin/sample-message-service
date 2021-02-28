@@ -1,9 +1,12 @@
 from app import db
-
+from datetime import datetime, timedelta, timezone
 from .models import Message
 
 import logging
-from datetime import datetime, timedelta, timezone
+
+## Globals being used here with the db connection. 
+## Would be better to use dependency injection
+## framework to better unit test
 
 THIRTY_DAYS_AGO = datetime.now() - timedelta(30)
 

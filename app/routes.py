@@ -36,7 +36,7 @@ def is_conversation_query(query):
 
 ## If other fields are passed, they will just be ignored
 ## Really want to use an additional Flask library
-## to accept/respond with a schema
+## to define then accept/respond with a schema
 def has_required_fields(request):
     json = request.json
     app.logger.info(json)

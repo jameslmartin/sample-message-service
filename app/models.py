@@ -1,6 +1,7 @@
 from app import db
 from sqlalchemy.dialects.postgresql import UUID
 
+import json
 import uuid
 
 class Message(db.Model):
@@ -43,5 +44,10 @@ class Message(db.Model):
         self.message = message
         self.created = created
 
+    ## Limited to this representation of the model 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return json.dumps({ 
+            'sender': self.sender,
+            'recipient': self.recipient,
+            'message': self.message
+        })
