@@ -7,8 +7,7 @@ A Makefile is provided to abstract some of the Docker commands to build and run 
 1. Install Docker
 2. Run `make build network` to build latest Docker image of the Guild message service and instantiate the network used by docker-compose
 3. Create a `.env` file and copy the variables found in `.env-TEMPLATE`
-    - Use ```shell
-    SQLALCHEMY_DATABASE_URI=postgresql://postgres:education@database:5432/messages_dev
+    - Use ```SQLALCHEMY_DATABASE_URI=postgresql://postgres:education@database:5432/messages_dev
     FLASK_ENV=dev``` for the values
 4. Run `make service` to run both the Postgres database and service on the same Docker network
     - `IMPORTANT` - The first time this is run will likely fail!! This is because if no database exists, Postgres will run the init scripts located in the mounted init directory. More information on Dockerhub under [Caveats](https://hub.docker.com/_/postgres) - essentially the `depends_on` keyword for the service does not wait long enough for the database to finish coming up and will fail to connect if the db is still initializing

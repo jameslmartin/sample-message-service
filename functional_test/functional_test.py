@@ -10,7 +10,7 @@ SERVICE_BASE_PATH = "http://guild:8080"
 
 def test_given_correct_request__verify_api_is_available():
     r = requests.get(SERVICE_BASE_PATH + "/health")
-    assert(r.text == "UP")
+    assert(r.text == "UP\n")
 
 def test_given_correct_request__adds_message_to_db():
     message = {
