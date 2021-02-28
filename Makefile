@@ -22,7 +22,7 @@ run-docker:
 network: ## Create docker network
 	docker network create --driver bridge $(NETWORK)
 
-build-message-service: ## Build the latest Flask app
+build: ## Build the latest Flask app
 	docker build -t guild -f ./Dockerfile .
 
 service: ## Rebuild and stand up Postgres database and service in detached mode

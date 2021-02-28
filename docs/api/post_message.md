@@ -32,6 +32,6 @@ Example response:
 
 ```json
 {
-  id: <uuid>    
+  "Message saved with id: <uuid>"    
 }
 ```

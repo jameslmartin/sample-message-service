@@ -3,16 +3,15 @@
 This endpoint fetches Message entities against a PostgreSQL database. This is a toy API written for Guild.
 
 ```plaintext
-GET /message?sender
+GET /message?sender=<sender>&recipient=<recipient>
 ```
 
 Supported attributes:
 
 | Attribute   | Type     | Required | Description           |
 |:------------|:---------|:---------|:----------------------|
-| `sender`    | string   | yes      | The user sending the message |
-| `recipient` | string   | yes      | The user receiving the message |
-| `message`   | string   | yes      | The content of the message being sent |
+| `sender`    | string   | no      | The user sending the message |
+| `recipient` | string   | no      | The user receiving the message |
 
 Example request (assuming the service is available at localhost):
 
@@ -28,10 +27,18 @@ curl --request POST \
 ```
 
 Example response:
-Example response:
 
 ```json
-{
-  id: <uuid>    
-}
+[
+    {
+        "sender": "james",
+        "recipient": "joe",
+        "message": "hello world!"
+    },
+    {
+        "sender": "james",
+        "recipient": "joe",
+        "message": "hello world!"
+    }
+]
 ```
