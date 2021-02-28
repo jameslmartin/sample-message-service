@@ -16,16 +16,16 @@ Supported attributes:
 Example GET all request (assuming the service is available at localhost):
 
 ```shell
-curl --request \
+curl \
 --url "http://localhost:8080/message" \
---header "content-type: application/json" \
+--header "content-type: application/json"
 ```
 
 Example GET request for sender/recipient
 ```shell
-curl --request \
---url "http://localhost:8080/message?sender=james&recipient=joe" \
---header "content-type: application/json" \
+curl \
+--url "http://localhost:8080/message?sender=james&recipient=jay" \
+--header "content-type: application/json"
 ```
 
 Example response:
@@ -34,9 +34,10 @@ Example response:
 [
     {
         "sender": "james",
-        "recipient": "joe",
+        "recipient": "jay",
         "message": "hello world!"
     },
+    ...
     {
         "sender": "james",
         "recipient": "joe",

@@ -5,7 +5,7 @@ A Makefile is provided to abstract some of the Docker commands to build and run 
 
 0. Clone this repository
 1. Install Docker
-2. Run `make build` to build latest Docker image of the Guild message service
+2. Run `make build network` to build latest Docker image of the Guild message service and instantiate the network used by docker-compose
 3. Create a `.env` file and copy the variables found in `.env-TEMPLATE`
     - Use ```shell
     SQLALCHEMY_DATABASE_URI=postgresql://postgres:education@database:5432/messages_dev
@@ -67,8 +67,7 @@ In production, I would only choose to use managed database products which would 
 ### Development
 Running the development environment not through docker-compose is possible with the following commands:
 
-1. Similar to the quickstart, make sure you have built the latest Flask app with `make build`
-2. Create a Docker network for the database and service to share with `make network` (you can also combine these two commands with `make build network`)
-3. Run `make start-db` to create the Postgres container
-4. Create the same `.env` file from the Quickstart
-5. When it is available to accept connections, open a new shell and run `make dev`. This command will mount your local directory into the container as well, so any edits you make will be mirrored in the container and vice-versa. You can then, in the container run `make start` to start the server with gunicorn or run any Python commands (like `pystest -s app`) that will run the unit tests in the project.
+1. Similar to the quickstart, make sure you have built the latest Flask app and created the network with `make build network`
+2. Run `make start-db` to create the Postgres container
+3. Create the same `.env` file from the Quickstart
+4. When it is available to accept connections, open a new shell and run `make dev`. This command will mount your local directory into the container as well, so any edits you make will be mirrored in the container and vice-versa. You can then, in the container run `make start` to start the server with gunicorn or run any Python commands (like `pystest -s app`) that will run the unit tests in the project.
