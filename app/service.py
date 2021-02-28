@@ -4,14 +4,14 @@ from .models import Message
 
 import logging
 
-## Globals being used here with the db connection. 
+## Globals being used here with the db connection.
 ## Would be better to use dependency injection
 ## framework to better unit test
 
 THIRTY_DAYS_AGO = datetime.now() - timedelta(30)
 
 class MessageService:
-    
+
     @staticmethod
     def create(request_json):
         logging.info("create!")
@@ -25,7 +25,7 @@ class MessageService:
         logging.info(new_message)
         db.session.add(new_message)
         db.session.commit()
-        
+
         return new_message
 
     @staticmethod
@@ -46,4 +46,3 @@ class MessageService:
         page = query.get('page', 1)
         messages = Message.query.filter(Message.created > THIRTY_DAYS_AGO).limit(100).all()
         return messages
-

@@ -18,6 +18,6 @@ class Config:
     SQLALCHEMY_ECHO = environ.get("SQLALCHEMY_ECHO")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-class TestConfig:
-    SQLALCHEMY_DATABASE_URI = "postgres://postgres:education@database:5432/messages_test"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+## class ProdConfig, TestConfig, etc...
+## Can create different configurations for different environments
+## Most useful would be Test to connect to a test DB, etc.

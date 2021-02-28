@@ -1,4 +1,4 @@
-.PHONY: help network start-db unit-test dev start message-service
+.PHONY: help network start-db unit-test functional-test dev start message-service
 .DEFAULT_GOAL := help
 
 DOCKER_IMAGE  := guild:latest
@@ -48,8 +48,7 @@ unit-test: ## Run unit tests in project
 
 functional-test: DOCKER_CONTAINER_NAME=guild-test
 functional-test: DOCKER_OPTS=-it \
-	-v `pwd`:/home/app/ 
-functional-test: NETWORK=host
+	-v `pwd`:/home/app/
 functional-test: DOCKER_IMAGE=guild:latest
 functional-test: DOCKER_CMD=pytest -s functional_test
 functional-test: run-docker
@@ -61,7 +60,7 @@ dev: DOCKER_OPTS=-it -v `pwd`:/home/app/ \
 	--env-file ./.env
 dev: DOCKER_CMD=bash
 dev: run-docker
-dev: ## Run Flask app container with local dir mounted to iterate
+dev: ## Run Flask app container with local dir mounted to develop/iterate
 
 start: ## Shortcut to running a wsgi server with gunicorn, can be run in dev container
 	gunicorn -b 0.0.0.0:8080 wsgi:app
@@ -70,4 +69,4 @@ message-service: DOCKER_CONTAINER_NAME=message-service
 message-service: DOCKER_PORTS=-p 0.0.0.0:$(APP_PORT):8080
 message-service: DOCKER_OPTS=-it --env-file ./.env
 message-service: run-docker
-message-service: ## Run Flask app server for messages, must start db first
+message-service: ## Run standalone Flask app server for messages, must start db first

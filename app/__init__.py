@@ -8,12 +8,8 @@ db = SQLAlchemy()
 def create_app(env=None):
     app = Flask(__name__, instance_relative_config=False)
     app.logger.setLevel(logging.INFO)
-    if env == "test":
-        app.logger.info(env)
-        app.config.from_object('config.TestConfig')
-    else:
-        app.logger.info(env)
-        app.config.from_object('config.Config')
+    app.logger.info(env)
+    app.config.from_object('config.Config')
     app.url_map.strict_slashes = True
 
     db.init_app(app)
@@ -29,7 +25,7 @@ def create_app(env=None):
         @app.route("/health")
         def health():
             return make_response(
-                'UP',
+                'UP\n',
                 200,
             )
 

@@ -13,17 +13,19 @@ Supported attributes:
 | `sender`    | string   | no      | The user sending the message |
 | `recipient` | string   | no      | The user receiving the message |
 
-Example request (assuming the service is available at localhost):
+Example GET all request (assuming the service is available at localhost):
 
 ```shell
-curl --request POST \
+curl --request \
 --url "http://localhost:8080/message" \
 --header "content-type: application/json" \
---data '{
-  "sender": "james",
-  "recipient": "jay",
-  "message": "hello world!"
-}'
+```
+
+Example GET request for sender/recipient
+```shell
+curl --request \
+--url "http://localhost:8080/message?sender=james&recipient=joe" \
+--header "content-type: application/json" \
 ```
 
 Example response:

@@ -1,7 +1,12 @@
 import requests
 import json
 
-SERVICE_BASE_PATH = "http://test_guild:8080" # Host name is the Container name of the service
+import uuid
+
+# Host name is the Container name of the service, this hard coded URL
+# assumes the service is available at guild:8080 (run with Docker compose and
+# functional tests are on the `guild` Docker network)
+SERVICE_BASE_PATH = "http://guild:8080"
 
 def test_given_correct_request__verify_api_is_available():
     r = requests.get(SERVICE_BASE_PATH + "/health")
@@ -15,6 +20,7 @@ def test_given_correct_request__adds_message_to_db():
     }
     r = requests.post(SERVICE_BASE_PATH + "/message", json=message)
     assert("Message saved" in r.text)
+    assert(r.status_code == 200)
 
 def test_given_malformed_request__returns_400_error():
     message = {
@@ -25,20 +31,21 @@ def test_given_malformed_request__returns_400_error():
     assert(r.status_code == 400)
 
 def test_given_two_messages_sent__receives_two_messages_by_sender():
+    id = str(uuid.uuid4())
     message_one = {
         "sender": "test_user",
-        "recipient": "joe",
-        "message": "hello joe!"
+        "recipient": id,
+        "message": "hello test user!"
     }
     message_two = {
         "sender": "test_user",
-        "recipient": "steve",
-        "message": "hello steve!"
+        "recipient": id,
+        "message": "hello test user!"
     }
     r = requests.post(SERVICE_BASE_PATH + "/message", json=message_one)
     assert("Message saved" in r.text)
     r = requests.post(SERVICE_BASE_PATH + "/message", json=message_two)
     assert("Message saved" in r.text)
 
-    r = requests.get(SERVICE_BASE_PATH + "/message")
-    print(r.json())
+    r = requests.get(SERVICE_BASE_PATH + "/message?sender=test_user&recipient={0}".format(id))
+    assert(len(r.json()) == 2)
