@@ -1,5 +1,9 @@
 # Message Service
 
+## API Documentation
+
+API docs can be found in the `docs/api` directory.
+
 ## Quickstart
 A Makefile is provided to abstract some of the Docker commands to build and run various parts of the service. If you so choose, you can interact with the project without the Makefile, but will need to emulate some of the Docker commands with their various mounts and network configuration. At any time you can run `make` to see the available commands.
 
