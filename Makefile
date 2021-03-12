@@ -1,4 +1,4 @@
-.PHONY: help network start-db unit-test functional-test dev start message-service
+.PHONY: help
 .DEFAULT_GOAL := help
 
 DOCKER_IMAGE  := guild:latest
