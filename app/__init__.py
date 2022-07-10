@@ -1,4 +1,4 @@
-from flask import Flask, make_response
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import flask_restless
 
@@ -21,12 +21,5 @@ def create_app(env=None):
         from . import models
         db.create_all()
         app.logger.info("database initiated!")
-
-        @app.route("/health")
-        def health():
-            return make_response(
-                'UP\n',
-                200,
-            )
 
         return app
